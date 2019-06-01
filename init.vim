@@ -11,6 +11,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'yegappan/mru'
 Plug 'alvan/vim-closetag'
 " Plug 'vim-scripts/vim-auto-save'
+Plug 'ayu-theme/ayu-vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'ervandew/supertab'
 Plug 'tpope/vim-rhubarb'
@@ -29,6 +30,9 @@ Plug 'farmergreg/vim-lastplace'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'roman/golden-ratio'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'jiangmiao/auto-pairs'
 
 " Tmux integration
 Plug 'benmills/vimux'
@@ -40,6 +44,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Syntax highlighting
+Plug 'sheerun/vim-polyglot'
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-rails'
@@ -47,19 +52,17 @@ Plug 'elzr/vim-json'
 Plug 'tpope/vim-markdown'
 Plug 'groenewege/vim-less'
 Plug 'tpope/vim-haml'
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
 Plug 'jparise/vim-graphql'
 Plug 'leafgarland/typescript-vim'
-
+Plug 'w0rp/ale'
+" Autocomplete
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Syntax errors
 Plug 'vim-syntastic/syntastic'
 Plug 'ntpeters/vim-better-whitespace'
 
 " Markdown support
 Plug 'junegunn/goyo.vim'
-
-" Git support
 Plug 'tpope/vim-fugitive', { 'commit': '444ba9fda5d05aa14c7e8664fa4a66a59c62a550' }
 
 " Themes
@@ -83,7 +86,8 @@ nnoremap <C-p> :Files<Cr>
 
 syntax on
 autocmd Filetype scss if getfsize(@%) > 300 | setlocal syntax=OFF | endif
-
+"autocmd FileType javascript set formatprg=prettier\ --stdin
+"autocmd BufWritePre *.js :normal gggqG
 
 set autoread                          " Auto reload changed files
 set wildmenu                          " Tab autocomplete in command mode
@@ -120,6 +124,13 @@ set wildignore+=*.zip
 set wildignore+=*/vendor/bundle/*
 set wildignore+=*/node_modules/
 
+"Linting
+
+let b:ale_fixers = ['prettier', 'eslint']
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '⚠️'
+let g:ale_fix_on_save = 1
+
 "-------------------------------------------------------------------------------
 " Interface
 "-------------------------------------------------------------------------------
@@ -132,9 +143,9 @@ set sidescrolloff=10  " Leave 10 characters of horizontal buffer when scrolling
 " Colors & Formatting
 "-------------------------------------------------------------------------------
 
-colorscheme solarized
-set background=dark
-
+"set termguicolors
+let ayucolor="light"
+colorscheme ayu
 " Showcase comments in italics
 highlight Comment cterm=italic gui=italic
 
@@ -160,10 +171,9 @@ let g:auto_save_in_insert_mode = 0 " do not save in insert mode
 
 if has('nvim')
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  set termguicolors
-  colorscheme NeoSolarized
-  set background=dark
-
+  let ayucolor="dark" 
+  colorscheme ayu
+  let g:deoplete#enable_at_startup = 1
   " Fix vim-tmux-navigator <C-h> https://git.io/viGRU
   nmap <BS> <C-W>h
 
