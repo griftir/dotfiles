@@ -35,7 +35,6 @@ Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'ntpeters/vim-better-whitespace'
 
 "Linting
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 " Markdown support
 Plug 'junegunn/goyo.vim'
 Plug 'tpope/vim-fugitive', { 'commit': '444ba9fda5d05aa14c7e8664fa4a66a59c62a550' }
@@ -166,12 +165,16 @@ endfunction
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
+" Prettier Command
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>p :Prettier<CR>
 
 augroup mygroup
   autocmd!
