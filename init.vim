@@ -1,19 +1,18 @@
-" 
-" Vim settings for @mscoutermarsh
-"
-
-" Settings in this file may depend on plugins, so let's install them first.
-" Not to be confused with the contents of ~/.vim/plugin/* which are
-" configuration options for each plugin and automatically loaded by Vim.
 call plug#begin('~/.local/share/nvim/plugged')
 " Addons
 Plug 'scrooloose/nerdtree'
 "Plug 'alvan/vim-closetag'
+
 " Plug 'vim-scripts/vim-auto-save'
+Plug 'ryanoasis/vim-devicons'
 Plug 'ayu-theme/ayu-vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-surround'
 Plug 'vim-scripts/tComment'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'preservim/nerdcommenter'
+Plug 'mhinz/vim-startify'
 Plug 'blarghmatey/split-expander'
 Plug 'jeffkreeftmeijer/vim-numbertoggle'
 Plug 'roman/golden-ratio'
@@ -21,10 +20,20 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/emmet-vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
-
-" File system navigation
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+"Plug 'vim-syntastic/syntastic'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'junegunn/goyo.vim'
+Plug 'tpope/vim-fugitive', { 'commit': '444ba9fda5d05aa14c7e8664fa4a66a59c62a550' }
+Plug 'altercation/vim-colors-solarized'
+Plug 'icymind/NeoSolarized'
+Plug 'janko-m/vim-test'
+Plug 'mattn/webapi-vim' | Plug 'mattn/gist-vim'
+call plug#end()
+
 
 " open new split panes to right and below
 set splitright
@@ -40,34 +49,12 @@ function! OpenTerminal()
 endfunction
 nnoremap <c-n> :call OpenTerminal()<CR>
 
-" Syntax highlighting
-Plug 'sheerun/vim-polyglot'
-
-" Autocomplete
-
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" CoC
 let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
 
-
-" Syntax errors
 "Plug 'vim-syntastic/syntastic'
 Plug 'ntpeters/vim-better-whitespace'
 
-"Linting
-" Markdown support
-Plug 'junegunn/goyo.vim'
-Plug 'tpope/vim-fugitive', { 'commit': '444ba9fda5d05aa14c7e8664fa4a66a59c62a550' }
-
-" Themes
-Plug 'altercation/vim-colors-solarized'
-Plug 'icymind/NeoSolarized'
-
-" Testing
-Plug 'janko-m/vim-test'
-
-" Gist
-Plug 'mattn/webapi-vim' | Plug 'mattn/gist-vim'
-call plug#end()
 " Leader Mappings
 map <Space> <leader>
 map <Leader>w :update<CR>
@@ -79,14 +66,14 @@ map <Leader>r :Rg<CR>
 nnoremap <C-p> :Files<Cr>
 "Open Nerd Tree
 nmap <Leader>n :NERDTreeToggle <CR>
+nnoremap <silent> <C-b> :NERDTreeToggle<CR>
+
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = []
 let g:NERDTreeStatusline = ''
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" Toggle
-nnoremap <silent> <C-b> :NERDTreeToggle<CR>
 
 syntax on
 autocmd Filetype scss if getfsize(@%) > 300 | setlocal syntax=OFF | endif
@@ -126,11 +113,6 @@ set wildignore+=*.so
 set wildignore+=*.zip
 set wildignore+=*/vendor/bundle/*
 set wildignore+=*/node_modules/
-
-
-"COC 
-" if hidden is not set, TextEdit might fail.
-set hidden
 
 " Some servers have issues with backup files, see #649
 set nobackup
@@ -226,15 +208,18 @@ command! -nargs=0 Format :call CocAction('format')
 " Use `:Fold` to fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
-" use alt+hjkl to move between split/vsplit panels
-tnoremap <A-h> <C-\><C-n><C-w>h
-tnoremap <A-j> <C-\><C-n><C-w>j
-tnoremap <A-k> <C-\><C-n><C-w>k
-tnoremap <A-l> <C-\><C-n><C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
+" move split panes to left/bottom/top/right
+
+nnoremap <A-h> <C-W>H
+nnoremap <A-j> <C-W>J
+nnoremap <A-k> <C-W>K
+nnoremap <A-l> <C-W>L
+
+" move between panes to left/bottom/top/right
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " Add diagnostic info for https://github.com/itchyny/lightline.vim
 " let g:lightline = {
