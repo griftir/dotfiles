@@ -62,8 +62,8 @@ let g:airline#extensions#tabline#enabled = 1
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
 
-
-
+" Gitgutter
+let g:gitgutter_map_keys = 0
 
 " Leader Mappings
 map <Space> <leader>
@@ -229,10 +229,10 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " move split panes to left/bottom/top/right
 
-nnoremap <A-h> <C-W>H
-nnoremap <A-j> <C-W>J
-nnoremap <A-k> <C-W>K
-nnoremap <A-l> <C-W>L
+nnoremap <M-h> <C-W>H
+nnoremap <M-j> <C-W>J
+nnoremap <M-k> <C-W>K
+nnoremap <M-l> <C-W>L
 
 " move between panes to left/bottom/top/right
 nnoremap <C-h> <C-w>h
