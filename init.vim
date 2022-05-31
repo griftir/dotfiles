@@ -5,6 +5,7 @@ Plug 'scrooloose/nerdtree'
 
 " Plug 'vim-scripts/vim-auto-save'
 Plug 'ryanoasis/vim-devicons'
+Plug 'vim-airline/vim-airline'
 Plug 'ayu-theme/ayu-vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-surround'
@@ -38,6 +39,8 @@ call plug#end()
 " open new split panes to right and below
 set splitright
 set splitbelow
+set encoding=utf8
+let g:airline_powerline_fonts = 1
 " turn terminal to normal mode with escape
 tnoremap <Esc> <C-\><C-n>
 " start terminal in insert mode
@@ -52,8 +55,15 @@ nnoremap <c-n> :call OpenTerminal()<CR>
 " CoC
 let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
 
-"Plug 'vim-syntastic/syntastic'
-Plug 'ntpeters/vim-better-whitespace'
+
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+
+
 
 " Leader Mappings
 map <Space> <leader>
@@ -159,6 +169,15 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+
+nmap <leader>T :enew<cr>
+
+" Move to the next buffer
+nmap <leader>l :bnext<CR>
+
+" Move to the previous buffer
+nmap <leader>h :bprevious<CR>
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
