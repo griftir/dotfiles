@@ -1,10 +1,10 @@
 call plug#begin('~/.local/share/nvim/plugged')
 " Addons
 Plug 'scrooloose/nerdtree'
-"Plug 'alvan/vim-closetag'
-
+Plug 'alvan/vim-closetag'
+Plug 'github/copilot.vim'
 " Plug 'vim-scripts/vim-auto-save'
-Plug 'ryanoasis/vim-devicons'
+"APlug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline'
 Plug 'ayu-theme/ayu-vim'
 Plug 'airblade/vim-gitgutter'
@@ -296,6 +296,7 @@ if has('nvim')
   set background=light
   let g:solarized_termcolors=256
   colorscheme NeoSolarized
+  set background=dark
 
 endif
 
